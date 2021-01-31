@@ -21,8 +21,8 @@ const displayCart = async () => {
         const cameraPrice = product[2] / 100; // Stocke le prix du produit
         const cameraImg = product[3]; // Stocke l'image du produit
         cartInformation.products.push(cameraId); // Envoie l'id du produit au tableau products de cartInformation
-        cartInformation.products.push(cameraName);
-        cartInformation.products.push(cameraPrice);
+        // cartInformation.products.push(cameraName);
+        // cartInformation.products.push(cameraPrice);
         
 
         renderCart(cameraName, cameraPrice, cameraImg) // Fourni l'affichage du/des produits du panier
@@ -48,6 +48,7 @@ const renderCart = (productName, productPrice, imgUrl) => {
     article.innerHTML = `
     <img src="${imgUrl}">
     <div class="product-information>
+        <p class="name">${productName}</p>
     
         <p class="price">${productPrice}€</p>
     </div>
@@ -67,14 +68,18 @@ const deleteCart = (removeElt, container, productName) => {
 }
 displayCart();
 
-const submitBtn = document.getElementById('submitBtn');
+let submitBtn = document.getElementById('submitBtn');
+let username;
+let emailAddress;
+let prenom;
+let ville;
 
 const validate = () => {
   
-  const username = document.getElementById('username');
-  const emailAddress = document.getElementById('email-address');
-  const prenom = document.getElementById('prenom');
-  const ville = document.getElementById('ville');
+  username = document.getElementById('username');
+  emailAddress = document.getElementById('email-address');
+  prenom = document.getElementById('prenom');
+  ville = document.getElementById('ville');
 
   if (username.value === "") {
     alert("Please enter your username.");
@@ -132,8 +137,17 @@ submitBtn.addEventListener("click", async (e) => {
    // Redirige vers la page de confirmation de commande
     e.preventDefault(); 
     const validForm = validate();
+    cartInformation.contact = {
+        "lastName" : username.value,
+        "email" : emailAddress.value,
+        "firstName" : prenom.value,
+        "city" : ville.value,
+        "address":"kljlkjlkjlkj"
+    }
+
     if (validForm !== false ) {
-        const response = await postData('POST', 'http://localhost:3000/api/cameras/order', cartInformation); // Envoie données au serveur    
-        window.location.href = `./confirmation.html?id=${response.orderId}&price=${totalPrice}&user=${prenom.value}&`; // Redirige vers la page de confirmation de commande
+        const response = await postData('POST', 'http://localhost:3000/api/cameras/order', cartInformation); // Envoie données au serveur 
+        console.log(response, cartInformation);   
+        window.location.href = `./confirmation.html?${response.orderId}&${totalPrice}&${prenom.value}`; // Redirige vers la page de confirmation de commande
     } 
 })
