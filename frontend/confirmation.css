@@ -1,7 +1,6 @@
 @import url('https://fonts.googleapis.com/css2?family=Playfair+Display&display=swap');
-
 body {
-    background-color:#dee2e6;
+    background-color: #dee2e6;
 }
 
 .jumbotron {
@@ -20,7 +19,6 @@ h1 {
 
 a {
     font-family: 'Playfair Display', serif;
-    
 }
 
 .price {

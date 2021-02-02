@@ -4,21 +4,21 @@ const url = 'http://localhost:3000/api/cameras/';
 const params = new URLSearchParams(window.location.search)
 const id = params.get("id")
 
-const article = document.querySelector('article'); 
+const article = document.querySelector('article');
 
 // Affiche le produit
-const displayProduct = async () => {
-    const data = await getOneCamera(url, id);
-    renderCamera(data);
-    customizeYourCamera(article, data.lenses);
-    addToCart(article, data);    
-}
-// Récupère un teddy bear
-const getOneCamera = async (productUrl, productId) => {
-    const response = await fetch(productUrl + productId);
-    return await response.json();
-}
-// Fourni l'affichage selon les données du produit
+const displayProduct = async() => {
+        const data = await getOneCamera(url, id);
+        renderCamera(data);
+        customizeYourCamera(article, data.lenses);
+        addToCart(article, data);
+    }
+    // Récupère un teddy bear
+const getOneCamera = async(productUrl, productId) => {
+        const response = await fetch(productUrl + productId);
+        return await response.json();
+    }
+    // Fourni l'affichage selon les données du produit
 const renderCamera = (productData) => {
     article.innerHTML = `
     <div class="product">
@@ -33,37 +33,37 @@ const renderCamera = (productData) => {
 
 // Personnalise le produit
 const customizeYourCamera = (parentElt, productLenses) => {
-    // Crée liste déroulante
-    const label = document.createElement('label');
-    const select = document.createElement('select');
+        // Crée liste déroulante
+        const label = document.createElement('label');
+        const select = document.createElement('select');
 
-    label.setAttribute('for', 'lenses-list');
-    label.textContent = 'Couleurs disponibles : '
-    select.id = "color-lenses";
+        label.setAttribute('for', 'lenses-list');
+        label.textContent = 'Couleurs disponibles : '
+        select.id = "color-lenses";
 
-    parentElt.appendChild(label);
-    parentElt.appendChild(select);
-    // Crée une balise option pour chaque couleur
-    productLenses.forEach(productLenses => {
-        const option = document.createElement('option');
-        option.value = productLenses;
-        option.textContent = productLenses.toUpperCase();
-        select.appendChild(option);
-    })
-    // Récupère la couleur choisie dans la console
-    select.addEventListener('change', (e) => {
-        lensesChosen = e.target.value.toLowerCase();
-        console.log(lensesChosen);        
-    });
-}
-// Ajoute le produit au panier
+        parentElt.appendChild(label);
+        parentElt.appendChild(select);
+        // Crée une balise option pour chaque couleur
+        productLenses.forEach(productLenses => {
+                const option = document.createElement('option');
+                option.value = productLenses;
+                option.textContent = productLenses.toUpperCase();
+                select.appendChild(option);
+            })
+            // Récupère la couleur choisie dans la console
+        select.addEventListener('change', (e) => {
+            lensesChosen = e.target.value.toLowerCase();
+            console.log(lensesChosen);
+        });
+    }
+    // Ajoute le produit au panier
 const addToCart = (parentElt, productData) => {
     // Crée le bouton d'envoie du produit
     const btn = document.createElement('button');
     const div = document.createElement('div');
     btn.textContent = 'Ajouter au panier';
     div.classList.add('add-to-cart');
-    parentElt.appendChild(div);    
+    parentElt.appendChild(div);
     parentElt.appendChild(btn);
 
     // Assigne valeur à envoyer à localStorage
