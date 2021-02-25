@@ -13,7 +13,7 @@ const displayProduct = async() => {
         customizeYourCamera(article, data.lenses);
         addToCart(article, data);
     }
-    // Récupère un teddy bear
+    // Récupère une caméra
 const getOneCamera = async(productUrl, productId) => {
         const response = await fetch(productUrl + productId);
         return await response.json();
@@ -43,14 +43,14 @@ const customizeYourCamera = (parentElt, productLenses) => {
 
         parentElt.appendChild(label);
         parentElt.appendChild(select);
-        // Crée une balise option pour chaque couleur
+        // Crée une balise option pour chaque lentille
         productLenses.forEach(productLenses => {
                 const option = document.createElement('option');
                 option.value = productLenses;
                 option.textContent = productLenses.toUpperCase();
                 select.appendChild(option);
             })
-            // Récupère la couleur choisie dans la console
+            // Récupère la lentille choisie dans la console
         select.addEventListener('change', (e) => {
             lensesChosen = e.target.value.toLowerCase();
             console.log(lensesChosen);
