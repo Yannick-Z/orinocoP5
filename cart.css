@@ -1,0 +1,19 @@
+img {
+    max-width: -webkit-fill-available;
+}
+
+form {
+    text-align: -webkit-center;
+}
+
+@media screen and (max-width: 320px) {
+    form {
+        font-size: 11px;
+    }
+    .jumbotron h1 {
+        font-size: 20px;
+    }
+    section h3 {
+        font-size: 20px;
+    }
+}
